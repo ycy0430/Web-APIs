@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            margin: 10px auto;
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            width: 600px;
+            text-align: center;
+        }
+        
+        .th,
+        .td {
+            border: 1px solid #ccc;
+        }
+        
+        .th {
+            background: #E9FAFF;
+        }
+        
+        div {
+            width: 600px;
+            margin: 30px auto;
+        }
+        
+        input {
+            margin-right: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <form action="">
+            型号：<input type="text" name="" id="type"> 价格：
+            <input type="text" name="" id="price">
+            <input type="button" id="btn" value="添加">
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th class="th"><input type="checkbox" name="" id=""></th>
+                <th class="th">型号</th>
+                <th class="th">价格</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="td"><input type="checkbox" name="" id=""></td>
+                <td class="td">iphone11</td>
+                <td class="td">5999</td>
+            </tr>
+            <tr>
+                <td class="td"><input type="checkbox" name="" id=""></td>
+                <td class="td">iphone11pro</td>
+                <td class="td">6999</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var btn = document.getElementById('btn');
+        var type = document.getElementById('type');
+        var price = document.getElementById('price');
+        var tbody = document.querySelector('tbody');
+
+        btn.onclick = function() {
+            if (type.value == '' || price.value == '') {
+                alert('输入不能有空！');
+            } else {
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td');
+                var td2 = document.createElement('td');
+                var td3 = document.createElement('td');
+                var check = document.createElement('input');
+                check.type = 'checkbox';
+                td2.innerHTML = type.value;
+                td3.innerHTML = price.value;
+                tbody.appendChild(tr);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                td1.appendChild(check);
+                td1.className = 'td';
+                td2.className = 'td';
+                td3.className = 'td';
+            }
+            set();
+            setMouse();
+
+        }
+
+
+        var set = function() {
+            var tr = document.querySelector('tbody').querySelectorAll('tr');
+            for (var i = 0; i < tr.length; i++) {
+                tr[i].onmouseover = function() {
+                    this.style.background = '#E9FAFF';
+                }
+                tr[i].onmouseout = function() {
+                    this.style.background = '';
+                }
+                console.log(tr.length);
+                console.log(i);
+            }
+        }
+        set();
+
+        var setMouse = function() {
+            var checkbox = document.querySelector('table').querySelectorAll('input');
+            checkbox[0].onclick = function() {
+                if (checkbox[0].checked == true) {
+                    for (var i = 1; i < checkbox.length; i++) {
+                        checkbox[i].checked = true;
+                    }
+                } else if (checkbox[0].checked == false) {
+                    for (var i = 1; i < checkbox.length; i++) {
+                        checkbox[i].checked = false;
+                    }
+                }
+            }
+
+            for (var i = 1; i < checkbox.length; i++) {
+                checkbox[i].onclick = function() {
+                    var m = 0;
+                    for (var j = 1; j < checkbox.length; j++) {
+                        if (checkbox[j].checked == false) {
+                            break;
+                        } else if (checkbox[j].checked == true) {
+                            m++;
+                        }
+                        console.log('j:' + j);
+                    }
+                    if (m == checkbox.length - 1) {
+                        checkbox[0].checked = true;
+                    } else {
+                        checkbox[0].checked = false;
+
+                    }
+                    console.log(m);
+                }
+            }
+        }
+        setMouse();
+    </script>
+</body>
+
+</html>

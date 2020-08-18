@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style></style>
+</head>
+<style>
+    div {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    img {
+        width: 1520px;
+    }
+    
+    span {
+        position: absolute;
+        background: url(images/close.jpg) no-repeat;
+        top: 10px;
+        right: 50px;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div>
+        <img src="images/luzhou.jpg" alt="">
+        <span></span>
+    </div>
+    <script>
+        var div = document.querySelector('div');
+        var close = document.querySelector('span');
+        close.onclick = function() {
+            div.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

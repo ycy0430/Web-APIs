@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        
+        div {
+            position: relative;
+            width: 180px;
+            margin: 0 auto;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #333
+        }
+        
+        a {
+            position: relative;
+            float: left;
+            display: block;
+            width: 60px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ccc;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        
+        a:hover {
+            background-color: #F9CC9D;
+        }
+        
+        ul {
+            position: absolute;
+            display: none;
+            float: left;
+            top: 29px;
+            left: -1px;
+            list-style: none;
+        }
+        
+        ul li {
+            display: block;
+            float: left;
+            width: 60px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-top: 0;
+            line-height: 30px;
+        }
+        
+        ul li:hover {
+            background-color: #F9CC9D;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div><a href="#">
+        菜单
+        <ul>
+            <li>选项</li>
+            <li>选项</li>
+            <li>选项</li>
+            <li>选项</li>
+        </ul>
+    </a>
+        <a href="#">
+        菜单
+        <ul>
+            <li>选项</li>
+            <li>选项</li>
+            <li>选项</li>
+
+        </ul>
+    </a>
+        <a href="#">
+        菜单
+        <ul>
+            <li>选项</li>
+            <li>选项</li>
+
+        </ul>
+    </a>
+    </div>
+
+    <script>
+        var a = document.querySelector('div').children;
+        console.log(a);
+
+
+        for (var i = 0; i < a.length; i++) {
+            var ul = a[i].children;
+            console.log(ul);
+            a[i].onmouseover = function() {
+                this.children[0].style.display = 'block';
+            }
+            a[i].onmouseout = function() {
+                this.children[0].style.display = 'none';
+
+            }
+        }
+    </script>
+</body>
+
+</html>

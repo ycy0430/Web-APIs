@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .main {
+            width: 600px;
+            height: 300px;
+            margin: 300px auto;
+            border: 1px solid #ccc;
+        }
+        
+        .hd {
+            width: 100%;
+            height: 50px;
+        }
+        
+        .hd ul {
+            display: flex;
+        }
+        
+        .hd ul li {
+            float: left;
+            flex: 1;
+            text-align: center;
+            line-height: 50px;
+            border: 1px solid steelblue;
+            cursor: pointer;
+        }
+        
+        .hd ul li:nth-child(n+1) {
+            margin-left: -1px;
+        }
+        
+        .pink {
+            background: pink;
+        }
+        
+        .bd-text {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="hd">
+            <ul>
+                <li class="pink">选项1</li>
+                <li>选项2</li>
+                <li>选项3</li>
+                <li>选项4</li>
+                <li>选项5</li>
+            </ul>
+        </div>
+        <div class="bd">
+            <div class="bd-text" style="display: block;">内容1111111111111111111111111111111</div>
+            <div class="bd-text">内容2222222222222222222222222222222</div>
+            <div class="bd-text">内容3333333333333333333333333333333</div>
+            <div class="bd-text">内容4444444444444444444444444444444</div>
+            <div class="bd-text">内容5555555555555555555555555555555</div>
+        </div>
+    </div>
+    <script>
+        var li = document.querySelector('.hd').querySelectorAll('li');
+        var text = document.querySelector('.bd').querySelectorAll('.bd-text');
+        for (var i = 0; i < li.length; i++) {
+            li[i].setAttribute('index', i);
+            li[i].onclick = function() {
+                var index = this.getAttribute('index');
+                for (var i = 0; i < li.length; i++) {
+                    li[i].className = '';
+                }
+                this.setAttribute('class', 'pink');
+                for (var i = 0; i < li.length; i++) {
+                    text[i].style.display = 'none';
+                }
+                text[index].style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>

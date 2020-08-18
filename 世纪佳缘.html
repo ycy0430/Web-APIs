@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 100px auto;
+            width: 560px;
+            height: 50px;
+        }
+        
+        input {
+            float: left;
+            border: 1px solid #ccc;
+            color: #ccc;
+            width: 160px;
+            height: 30px;
+            font-size: 17px;
+            padding-left: 10px;
+            outline: none;
+            margin-left: 20px;
+        }
+        
+         ::placeholder {
+            color: #ccc;
+            font-size: 17px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1 - 输入框内容显示和隐藏（加强训练）
+
+- 题目描述
+
+   仿世纪佳缘网，显示和隐藏输入框中的提示内容，具体表现如下图：
+
+   1）输入框获得焦点，提示内容消失，边框变色
+
+   2）输入框失去焦点，如果内容为空，提示内容恢复，边框变色；如果内容不为空，只有边框变色 -->
+    <div>
+        <input type="text" id="id" placeholder="邮箱/ID/手机号" value="">
+        <input type="password" id="psw" placeholder="密码" value="">
+    </div>
+    <script>
+        var input = document.querySelectorAll('input');
+        for (let i = 0; i <= 1; i++) { //var i 有作用域问题 
+            input[i].onfocus = function() {
+                this.placeholder = '';
+                this.style.border = '1px solid #007ACC'
+            }
+            input[i].onblur = function() {
+                if (this.value == '') {
+                    console.log(i);
+                    if (i == 0) {
+                        this.placeholder = '邮箱/ID/手机号';
+                    } else if (i == 1) {
+                        this.placeholder = '密码';
+                    } else
+                        this.style.border = '10px solid #ccc';
+
+                }
+                this.style.border = '1px solid #ccc';
+
+
+            }
+
+        }
+    </script>
+</body>
+
+</html>
