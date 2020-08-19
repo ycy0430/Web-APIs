@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+    <style>
+        body {
+            background-color: red;
+            /* 不支持线性的时候显示 */
+            background-image: linear-gradient(to right, red, yellow);
+        }
+    </style>
 </head>
 
 <body>
-    <button id="btn">唐伯虎</button>
 
-    <script>
-        var btn = document.getElementById('btn');
-        btn.onclick = function() {
-            alert('点秋香');
-        }
-    </script>
+    <h3>线性渐变 - 从左到右</h3>
+    <p>从左边开始的线性渐变。起点是红色，慢慢过渡到黄色：</p>
+
+    <div id="grad1"></div>
+
+    <p><strong>注意：</strong> Internet Explorer 8 及之前的版本不支持渐变。</p>
+
 </body>
 
 </html>

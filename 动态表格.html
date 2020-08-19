@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            margin: 10px auto;
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            width: 600px;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+        
+        th {
+            background: #E9FAFF;
+            width: 50px;
+        }
+        
+        div {
+            width: 600px;
+            margin: 10px auto;
+        }
+        
+        form input {
+            margin-right: 30px;
+        }
+        
+        .ckb {
+            width: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <form action="">
+            姓名： <input type="text" name="" id="name"><br> 科目：
+            <input type="text" name="" id="subject"><br> 分数：
+            <input type="text" name="" id="score"><br><br>
+            <input type="button" id="add" value="添加">
+            <input type="button" id="del" value="删除所选">
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th class="th ckb"><input type="checkbox" name="" id=""></th>
+                <th class="th">姓名</th>
+                <th class="th">科目</th>
+                <th class="th">分数</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+        //数据
+        var datas = [{
+                name: '钱军',
+                subject: 'JavaScript',
+                score: 99
+            }, {
+                name: '乐乐',
+                subject: 'JavaScript',
+                score: 98
+            }, {
+                name: '王振',
+                subject: 'JavaScript',
+                score: 97
+            }, {
+                name: '栗志勇',
+                subject: 'JavaScript',
+                score: 96
+            }]
+            //生成行
+        var show = function() {
+            var checkbox = document.querySelector('table').querySelectorAll('input');
+            var tbody = document.querySelector('tbody');
+            var tr = tbody.querySelectorAll('tr');
+            for (var i = 0; i < tr.length; i++) {
+                tbody.removeChild(tr[i]);
+            }
+            for (var i = 0; i < datas.length; i++) {
+                var tr = document.createElement('tr');
+                tbody.appendChild(tr);
+                //生成复选框
+                var td = document.createElement('td');
+                td.innerHTML = '<input type="checkbox">';
+                tr.appendChild(td);
+                //生成列
+                for (var k in datas[i]) {
+                    var td = document.createElement('td');
+                    td.innerHTML = datas[i][k];
+                    tr.appendChild(td);
+                }
+
+            }
+            checkbox[0].checked = false;
+
+        }
+        show();
+        var add = document.getElementById('add');
+        //添加数据
+        add.onclick = function() {
+            var name = document.getElementById('name');
+            var subject = document.getElementById('subject');
+            var score = document.getElementById('score');
+            if (name.value == '' || subject.value == '' || score.value == '') {
+                alert('不能有空');
+            } else {
+                datas[datas.length] = {
+                    name: name.value,
+                    subject: subject.value,
+                    score: parseFloat(score.value)
+                }
+            }
+            show();
+            setMouse();
+            set();
+        }
+
+        //删除
+        var delbtn = document.getElementById('del');
+        delbtn.onclick = function() {
+            var checkbox = document.querySelector('table').querySelectorAll('input');
+            if (checkbox[0].checked == true) {
+                datas = [];
+            } else {
+                for (var i = checkbox.length - 1; i >= 0; i--) {
+                    if (checkbox[i].checked == true) {
+                        datas.splice(i - 1, 1);
+                    }
+                }
+            }
+            show();
+            setMouse();
+            set();
+        }
+
+
+        //设置全选
+        var setMouse = function() {
+            var checkbox = document.querySelector('table').querySelectorAll('input');
+            checkbox[0].onclick = function() {
+                if (checkbox[0].checked == true) {
+                    for (var i = 1; i < checkbox.length; i++) {
+                        checkbox[i].checked = true;
+                    }
+                } else if (checkbox[0].checked == false) {
+                    for (var i = 1; i < checkbox.length; i++) {
+                        checkbox[i].checked = false;
+                    }
+                }
+            }
+
+            for (var i = 1; i < checkbox.length; i++) {
+                checkbox[i].onclick = function() {
+                    var m = 0;
+                    for (var j = 1; j < checkbox.length; j++) {
+                        if (checkbox[j].checked == false) {
+                            break;
+                        } else if (checkbox[j].checked == true) {
+                            m++;
+                        }
+                    }
+                    if (m == checkbox.length - 1) {
+                        checkbox[0].checked = true;
+                    } else {
+                        checkbox[0].checked = false;
+
+                    }
+                }
+            }
+        }
+        setMouse();
+        //鼠标隔行换色
+        var set = function() {
+            var tr = document.querySelector('tbody').querySelectorAll('tr');
+            for (var i = 0; i < tr.length; i++) {
+                tr[i].onmouseover = function() {
+                    this.style.background = '#E9FAFF';
+                }
+                tr[i].onmouseout = function() {
+                    this.style.background = '';
+                }
+            }
+        }
+        set();
+    </script>
+</body>
+
+</html>
