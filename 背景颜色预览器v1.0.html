@@ -12,6 +12,7 @@
         
         body {
             background: pink;
+            /* transition: background-color 2s; */
         }
         /* 双伪元素清除浮动 */
         
@@ -54,13 +55,13 @@
         
         .main i {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 40px;
+            height: 40px;
             background: transparent;
             border-radius: 50%;
             border: 1px solid #cccccc;
             box-shadow: 3px 2px 3px #ccc;
-            margin: 5px;
+            margin: 15px;
             cursor: pointer;
         }
         
@@ -100,13 +101,16 @@
         .show i {
             vertical-align: middle;
             background: transparent;
+            margin: 5px;
+            width: 20px;
+            height: 20px;
         }
     </style>
 </head>
 
 <body>
     <div class="main">
-        <span>点击此处随机生成一种新的颜色</span>
+        <span>点击此处随机生成一排新的颜色</span>
         <div class="hd clearfix">
             <form action="">
                 <p><input type="radio" name="model" value="pure" id="pure" checked>纯色模式</p>
@@ -122,7 +126,13 @@
         var btn = document.querySelector('span');
         var div = document.querySelector('.main');
 
-        btn.addEventListener('click', createNewColor);
+        btn.addEventListener('click', function() {
+            for (var i = 0; i < 4; i++) {
+                createNewColor();
+            }
+        });
+
+
         //生成新颜色
         function createNewColor() {
             var color = '#';
@@ -141,33 +151,52 @@
         }
         //阻止选中文字
         document.addEventListener('selectstart', function(e) {
-                e.preventDefault();
-            })
-            //变背景颜色
+            e.preventDefault();
+        })
+
+        //模式选择
+        //注册单选选中事件 TODO 可以设置窗口加载完就绑定 
+        var p = document.querySelectorAll('p');
+        var model1 = 'pure';
+        var model = document.getElementById('pure');
+        for (var i = 0; i < p.length; i++) {
+            p[i].addEventListener('click', function() {
+                var radio = this.querySelector('input');
+                radio.checked = true;
+            });
+            p[i].addEventListener('click', function() {
+                model.checked == true ? model1 = 'pure' : model1 = 'gradual';
+                console.log(model1);
+            });
+        }
+        //变背景颜色
         document.body.style.background = 'pink';
 
         function changebgc() {
             //事件委托
-            // var setbgc = document.body.style.background;
             var setbgc = document.body.style.background;
-            var model1 = 'gradual';
             var ischoose = false;
-            var model = document.getElementById('pure');
-            model.checked == true ? model1 = 'pure' : model1 = 'gradual';
-
+            var color = [];
+            color[0] = document.body.style.background
+            color[1] = document.body.style.background
+            color[2] = document.body.style.background
             div.addEventListener('mouseover', function(e) {
                 var preview = document.getElementById('preview');
+
                 if (e.target.tagName == 'I') {
                     if (model1 == 'pure') {
                         setbgc = document.body.style.background;
-                        document.body.style.background = 'linear-gradient(to bottom right, ' + setbgc + ', ' + e.target.style.background + ') no-repeat';
+                        document.body.style.transitionProperty = 'background';
+                        document.body.style.transitionDuration = '1s';
                         document.body.style.background = e.target.style.background;
                         preview.style.background = e.target.style.background;
                     } else if (model1 == 'gradual') {
-                        document.body.style.background = 'linear-gradient(to bottom right, ' + setbgc + ', ' + e.target.style.background + ') no-repeat';
-                        preview.style.background = 'linear-gradient(to bottom right, ' + setbgc + ', ' + e.target.style.background + ') no-repeat';
-                        console.log(setbgc);
-
+                        document.body.style.transition = 'background-position 1s';
+                        document.body.style.background = 'linear-gradient(to right, ' + color[1] + ',' + color[2] + ',' + e.target.style.background + ')';
+                        document.body.style.backgroundSize = '200%';
+                        document.body.style.backgroundPosition = '100% 0';
+                        console.log(color);
+                        preview.style.background = 'linear-gradient(to bottom right, ' + color[1] + ',' + color[2] + ',' + e.target.style.background + ')';
                     }
                 }
             })
@@ -180,10 +209,15 @@
                         selected.style.background = e.target.style.background;
                         console.log(e.target.style.background);
                     } else if (model1 == 'gradual') {
-                        document.body.style.background = 'linear-gradient(to bottom right, ' + setbgc + ', ' + e.target.style.background + ') no-repeat';
-                        selected.style.background = 'linear-gradient(to bottom right, ' + setbgc + ', ' + e.target.style.background + ') no-repeat';
-                        setbgc = e.target.style.background;
-                        console.log(selected.style.background);
+                        selected.style.background = 'linear-gradient(to bottom right, ' + color[1] + ',' + color[2] + ',' + e.target.style.background + ')';
+                        color.shift();
+                        color.shift();
+                        color.push(e.target.style.background);
+                        color.push(e.target.style.background);
+                        console.log(color);
+                        document.body.style.transition = 'background-position 0s';
+                        document.body.style.background = 'linear-gradient(to right, ' + color[0] + ',' + color[1] + ',' + color[2] + ')';
+                        document.body.style.backgroundSize = '200%';
                     }
                     ischoose = true;
                 }
@@ -193,38 +227,20 @@
                 var preview = document.getElementById('preview');
                 if (e.target.tagName == 'I') {
                     if (model1 == 'pure') {
+                        // document.body.style.transform = 'background-color 2s';
                         document.body.style.background = setbgc;
                         preview.style.background = '';
                     } else if (model1 == 'gradual') {
-                        if (ischoose == false) {
-                            document.body.style.background = setbgc;
-                        } else {
-                            document.body.style.background = selected.style.background;
-                        }
+                        document.body.style.background = 'linear-gradient(to right, ' + color[0] + ',' + color[1] + ',' + color[2] + ')';
+                        document.body.style.backgroundSize = '200%';
+                        document.body.style.backgroundPosition = '';
+                        console.log(color);
                         preview.style.background = '';
-
                     }
-
                 }
             })
         }
-        div.addEventListener('mouseover', changebgc);
-
-        //单选文字绑定
-        function clickp() {
-            var p = document.querySelectorAll('p');
-            for (var i = 0; i < p.length; i++) {
-                p[i].onclick = function() {
-                    var radio = this.querySelector('input');
-                    radio.checked = true;
-                }
-            }
-        }
-        //注册单选选中事件 TODO 可以设置窗口加载完就绑定 
-        var p = document.querySelectorAll('p');
-        for (var i = 0; i < p.length; i++) {
-            p[i].addEventListener('mouseover', clickp);
-        }
+        changebgc();
     </script>
 </body>
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 600px;
+            border: 10px solid rgb(120, 224, 228);
+            border-radius: 30px;
+            font-size: 100px;
+            text-align: center;
+            margin: 100px auto;
+            line-height: 200px;
+            background: rgba(0, 0, 0, .3);
+            color: white;
+        }
+        
+        div p {
+            margin: 0;
+            width: 600px;
+            height: 100px;
+            font-size: 90px;
+            line-height: 100px;
+        }
+        
+        div :first-child {
+            font-size: 50px;
+        }
+    </style>
+    <script>
+        window.addEventListener('load', function() {
+            clock();
+            setInterval(clock, 1000);
+
+            function clock() {
+                var nowTime = new Date();
+                var h = parseInt(nowTime.getHours());
+                h >= 10 ? h = h : h = '0' + h;
+                var m = parseInt(nowTime.getMinutes());
+                m >= 10 ? m = m : m = '0' + m;
+                var s = parseInt(nowTime.getSeconds());
+                s >= 10 ? s = s : s = '0' + s;
+
+                var Year = nowTime.getFullYear();
+                var Month = parseInt(nowTime.getMonth() + 1);
+                var Day = nowTime.getDate();
+                var week = nowTime.getDay();
+                var weekarr = ['日', '一', '二', '三', '四', '五', '六']
+                var div = document.querySelector('div');
+                var p = div.querySelectorAll('p');
+                p[0].innerHTML = Year + "年" + Month + "月" + Day + "日 星期" + weekarr[week];
+                p[1].innerHTML = '' + h + ':' + m + ':' + s + '';
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <div>
+        <p></p>
+        <p></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main {
+            width: 600px;
+            height: 200px;
+            margin: 0 auto;
+            text-align: center;
+            border: 3px solid #FF9F00;
+        }
+        
+        .bd {
+            width: 100%;
+            font-size: 35px;
+        }
+        
+        .day {
+            color: #FF9F00;
+            text-shadow: 10px 10px 10px #ccc;
+        }
+        
+        .time {
+            background: #FF9F00;
+            padding: 0 10px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 10px 10px 10px #ccc;
+        }
+    </style>
+
+    <script>
+        window.addEventListener('load', function() {
+            setTime();
+            setInterval(setTime, 1000);
+
+            function setTime() {
+                var box = document.querySelectorAll('span');
+                var nowTime = +new Date();
+                var setTime = +new Date('2020-8-31 21:36:16');
+                var times = (setTime - nowTime) / 1000;
+                var d = parseInt(times / 60 / 60 / 24)
+                box[0].innerHTML = d + '天';
+                var h = parseInt(times / 60 / 60 % 24); //时
+                box[1].innerHTML = h + '时'; // 把剩余的小时给 小时黑色盒子
+                var m = parseInt(times / 60 % 60); // 分
+                box[2].innerHTML = m + '分';
+                var s = parseInt(times % 60); // 当前的秒
+                box[3].innerHTML = s + '秒';
+            }
+
+
+        })
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <h1>距离开学还有</h1>
+        <div class="bd">
+            <span class="day">111天</span>
+            <span class="time">11时</span>
+            <span class="time">11时</span>
+            <span class="time">11时</span>
+        </div>
+    </div>
+</body>
+
+</html>
