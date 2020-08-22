@@ -5,10 +5,193 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        h1 {
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .login {
+            display: none;
+            position: fixed;
+            top: 25%;
+            left: 50%;
+            width: 600px;
+            height: 300px;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .bd {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            box-shadow: 0px 0px 10px #333;
+            background: rgba(255, 255, 255, .8);
+            z-index: 10;
+            overflow: hidden;
+        }
+        
+        .bg {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: rgba(204, 204, 204, .9);
+            width: 100%;
+            height: 100%;
+        }
+        
+        .hd {
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            height: 40px;
+            background: rgba(103, 205, 254, .5);
+            line-height: 40px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: move;
+        }
+        
+        .close {
+            right: -15px;
+            top: -10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            line-height: 43px;
+            position: absolute;
+            background-color: #fff;
+            text-align: center;
+            z-index: 11;
+            font-size: 50px;
+            color: #fff;
+            background: brown;
+            box-shadow: 0px 0px 10px brown;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: brown;
+            background: #fff;
+        }
+        
+        form {
+            position: absolute;
+            width: 380px;
+            height: 200px;
+            top: 25%;
+            left: 25%;
+            z-index: 20;
+        }
+        
+        form span {
+            display: block;
+            margin-bottom: 20px;
+        }
+        
+        form input {
+            outline: none;
+            height: 35px;
+            font-size: 30px;
+            width: 250px;
+            border: none;
+            border-bottom: 2px solid #007ACC;
+            background: none;
+        }
+        
+        form p {
+            display: inline;
+            font-size: 25px;
+            margin-right: 10px;
+            color: #67CDFE;
+            text-shadow: 0 0 3px #ccc;
+        }
+        
+        form button {
+            position: relative;
+            top: 20px;
+            width: 320px;
+            height: 40px;
+            font-size: 30px;
+            line-height: 40px;
+            border-radius: 30px;
+            outline: none;
+            border: 2px solid #007ACC;
+            background: #67CDFE;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        form button:hover {
+            border: 2px solid #67CDFE;
+            background: #007ACC;
+            color: #67CDFE;
+        }
+    </style>
 </head>
 
 <body>
+    <h1 id="loginbtn">点此登录</h1>
+    <div class="login">
+        <div class="close">×</div>
+        <div class="bd">
+            <div class="hd" id="hd">登 录</div>
+        </div>
+        <form action="#">
+            <span class="user"><p>账号:</p><input type="text" autofocus="autofocus" maxlength="16"></span>
+            <span class="psw"><p>密码:</p><input type="password" maxlength="16"></span>
+            <button>登录</button>
+        </form>
+    </div>
+    <div class="bg"></div>
+    <script>
+        var btn = document.getElementById('loginbtn');
+        var login = document.querySelector('.login');
+        var bg = document.querySelector('.bg');
+        var hd = login.querySelector('#hd');
+        var closebox = login.querySelector('.close');
+        btn.onclick = function(e) {
+                console.log(e.pageX, e.pageY);
+            }
+            //阻止选中文字
+        login.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
 
+        //显示登录框和背景
+        btn.addEventListener('click', function() {
+            login.style.display = 'block';
+            bg.style.display = 'block';
+        });
+        //关闭登录框和背景
+        closebox.addEventListener('click', function() {
+            login.style.display = 'none';
+            bg.style.display = 'none';
+        });
+        hd.addEventListener('mousedown', function(e) {
+            var x = e.pageX - login.offsetLeft;
+            var y = e.pageY - login.offsetTop;
+            document.addEventListener('mousemove', setMove)
+
+            function setMove(e) {
+                login.style.left = e.pageX - x + 'px';
+                login.style.top = e.pageY - y + 'px';
+            }
+            hd.addEventListener('mouseup', function() {
+                document.removeEventListener('mousemove', setMove);
+            });
+        });
+    </script>
 </body>
 
 </html>
