@@ -5,10 +5,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .bd {
+            position: relative;
+            width: 300px;
+            margin: 300px auto;
+            border: 1px solid #000;
+        }
+        
+        .bd img {
+            width: 100%;
+            vertical-align: top;
+        }
+        
+        .mask .box {
+            display: none;
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            opacity: .3;
+            border: 1px solid #000;
+        }
+        
+        .mask .bigbox {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 300px;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #000;
+            overflow: hidden;
+        }
+        
+        .bigbox img {
+            position: absolute;
+            width: 300%;
+            vertical-align: top;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="bd">
+        <div class="img">
+            <img src="百度换肤/images/1.jpg" alt="">
+        </div>
 
+        <div class="mask">
+            <div class="box"></div>
+
+            <div class="bigbox">
+                <img src="百度换肤/images/1.jpg" alt="" id="bigimg">
+            </div>
+        </div>
+    </div>
+    <script>
+        var bd = document.querySelector('.bd');
+        var box = document.querySelector('.box');
+        var bigbox = document.querySelector('.bigbox');
+        var bigimg = document.getElementById('bigimg');
+        bd.addEventListener('mousemove', function(e) {
+            bigbox.style.display = 'block';
+            box.style.display = 'block';
+            var x = e.pageX - this.offsetLeft - box.offsetWidth / 2;
+            var y = e.pageY - this.offsetTop - box.offsetHeight / 2;
+            box.style.left = x + 'px';
+            box.style.top = y + 'px';
+            if (box.offsetLeft < 0) {
+                box.style.left = '0px';
+            } else if (box.offsetLeft > bd.offsetWidth - box.offsetWidth) {
+                box.style.left = bd.offsetWidth - box.offsetWidth + 'px';
+            }
+            if (box.offsetTop < 0) {
+                box.style.top = '0px';
+            } else if (box.offsetTop > bd.offsetHeight - box.offsetHeight) {
+                box.style.top = bd.offsetHeight - box.offsetHeight + 'px';
+            }
+            bigimg.style.left = -3 * box.offsetLeft + 'px';
+            bigimg.style.top = -3 * box.offsetTop + 'px';
+        })
+        bd.addEventListener('mouseout', function(e) {
+            bigbox.style.display = 'none';
+            box.style.display = 'none';
+
+        })
+    </script>
 </body>
 
 </html>
