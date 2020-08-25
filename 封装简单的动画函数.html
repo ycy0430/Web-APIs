@@ -34,16 +34,16 @@
 
         function animate(obj, target) {
             clearInterval(obj.timer);
-
+            var step = (target - obj.offsetLeft) / 100;
             obj.timer = setInterval(function() {
                 if (obj.offsetLeft >= target) {
                     clearInterval(obj.timer);
                 }
-                obj.style.left = obj.offsetLeft + 1 + 'px';
-            }, 1);
+                obj.style.left = obj.offsetLeft + step + 'px';
+            }, 10);
         }
 
-        animate(box1, 300);
+        animate(box1, 1000);
         btn.addEventListener('click', function() {
             animate(box2, 500)
         });
