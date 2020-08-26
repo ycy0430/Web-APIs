@@ -16,6 +16,7 @@
         .box2 {
             position: absolute;
             top: 300px;
+            left: 0;
             width: 200px;
             height: 200px;
             background: red;
@@ -24,27 +25,33 @@
 </head>
 
 <body>
-    <button>box2走</button>
+    <button id="btn1">box2走</button>
+    <button id="btn2">box2走</button>
     <div class="box1"></div>
     <div class="box2"></div>
     <script>
         var box1 = document.querySelector('.box1');
         var box2 = document.querySelector('.box2');
-        var btn = document.querySelector('button');
+        var btn1 = document.querySelector('#btn1');
+        var btn2 = document.querySelector('#btn2');
 
         function animate(obj, target) {
+
             clearInterval(obj.timer);
-            var step = (target - obj.offsetLeft) / 100;
             obj.timer = setInterval(function() {
-                if (obj.offsetLeft >= target) {
+                var step = (target - obj.offsetLeft) / 10;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                if (obj.offsetLeft == target) {
                     clearInterval(obj.timer);
                 }
                 obj.style.left = obj.offsetLeft + step + 'px';
-            }, 10);
+            }, 15);
         }
 
-        animate(box1, 1000);
-        btn.addEventListener('click', function() {
+        btn1.addEventListener('click', function() {
+            animate(box2, 800)
+        });
+        btn2.addEventListener('click', function() {
             animate(box2, 500)
         });
     </script>
