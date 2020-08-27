@@ -91,6 +91,26 @@
 
 
         })
+        goback.addEventListener('click', function() {
+            animate(window, 0);
+        })
+
+
+
+        function animate(obj, target, callback) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function() {
+                var step = (target - window.pageYOffset) / 10;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                if (window.pageYOffset == target) {
+                    clearInterval(obj.timer);
+                    callback && callback();
+                }
+                // obj.style.left = window.pageYOffset + step + 'px';
+                window.scroll(0, window.pageYOffset + step)
+            }, 15);
+            console.log('111');
+        }
     </script>
 
 </body>
