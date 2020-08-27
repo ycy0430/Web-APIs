@@ -25,8 +25,8 @@
 </head>
 
 <body>
-    <button id="btn1">box2走</button>
-    <button id="btn2">box2走</button>
+    <button id="btn1">走到800</button>
+    <button id="btn2">走到500</button>
     <div class="box1"></div>
     <div class="box2"></div>
     <script>
@@ -36,7 +36,6 @@
         var btn2 = document.querySelector('#btn2');
 
         function animate(obj, target) {
-
             clearInterval(obj.timer);
             obj.timer = setInterval(function() {
                 var step = (target - obj.offsetLeft) / 10;
