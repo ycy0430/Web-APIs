@@ -32,7 +32,7 @@ window.addEventListener('load', function() {
             var translatex = -index * w;
             ul.style.transform = 'translateX(' + translatex + 'px)';
         }
-        // 3. 小圆点跟随变化
+        // 3. 小圆点跟随变化、
         // 把ol里面li带有current类名的选出来去掉类名 remove
         ol.querySelector('.current').classList.remove('current');
         // 让当前索引号 的小li 加上 current   add
